@@ -99,6 +99,13 @@ public:
 	bool keyStateChanged();
 	byte numKeys();
 
+// Testing methods
+	bool keysScanned() { return _scanned; }
+	bool keyFound() { return _found; }
+	bool stateChanged() { return _changed; }
+	byte countCols() { return _cols; }
+	byte countRows() { return _rows; }	
+
 private:
 	unsigned long startTime;
 	char *keymap;
@@ -108,6 +115,10 @@ private:
 	uint debounceTime;
 	uint holdTime;
 	bool single_key;
+ 
+// For testing Methods
+	bool _scanned, _found, _changed;
+	byte _cols, _rows;
 
 	void scanKeys();
 	bool updateList();

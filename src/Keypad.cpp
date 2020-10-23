@@ -37,6 +37,8 @@ Keypad::Keypad(char *userKeymap, byte *row, byte *col, byte numRows, byte numCol
 	columnPins = col;
 	sizeKpd.rows = numRows;
 	sizeKpd.columns = numCols;
+	_rows = numRows;
+	_cols = numCols;
 
 	begin(userKeymap);
 
@@ -58,9 +60,14 @@ char Keypad::getKey() {
 	single_key = true;
 
 	if (getKeys() && key[0].stateChanged && (key[0].kstate==PRESSED))
+		_found = true;
+		_changed = true;
 		return key[0].kchar;
 	
 	single_key = false;
+	_found = false;
+	_changed = false;
+	_scanned = false;
 
 	return NO_KEY;
 }
@@ -75,12 +82,13 @@ bool Keypad::getKeys() {
 		keyActivity = updateList();
 		startTime = millis();
 	}
-
+	
 	return keyActivity;
 }
 
 // Private : Hardware scan
 void Keypad::scanKeys() {
+	_scanned = true;
 	// Re-intialize the row pins. Allows sharing these pins with other hardware.
 	for (byte r=0; r<sizeKpd.rows; r++) {
 		pin_mode(rowPins[r],INPUT_PULLUP);
@@ -110,6 +118,8 @@ bool Keypad::updateList() {
 			key[i].kchar = NO_KEY;
 			key[i].kcode = -1;
 			key[i].stateChanged = false;
+			_changed = false;
+			_found = false;
 		}
 	}
 
@@ -142,6 +152,7 @@ bool Keypad::updateList() {
 	// Report if the user changed the state of any key.
 	for (byte i=0; i<LIST_MAX; i++) {
 		if (key[i].stateChanged) anyActivity = true;
+		_changed = true;
 	}
 
 	return anyActivity;

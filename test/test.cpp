@@ -82,7 +82,255 @@ public:
 // (9,3) = '7', (8,3) = '8', (7,3) = '9', (6,3) = 'C', 
 // (9,2) = '*', (8,2) = '0', (7,2) = '#', (6,2) = 'D', 
 // ------------------------------------------------------------------------------
-unittest(init)
+// unittest(init)
+// {
+//     GodmodeState *state;
+//     state = GODMODE();
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         std::cout << i << " " << (int)(state->digitalPin[i]) << std::endl;
+//     }
+
+//     const byte ROWS = 4; //four rows
+//     const byte COLS = 4; //three columns
+//     char keys[ROWS][COLS] = {
+//         {'1', '2', '3', 'A'},
+//         {'4', '5', '6', 'B'},
+//         {'7', '8', '9', 'C'},
+//         {'*', '0', '#', 'D'}};
+//     byte rowPins[ROWS] = {5, 4, 3, 2}; //connect to the row pinouts of the keypad
+//     byte colPins[COLS] = {9, 8, 7, 6}; //connect to the column pinouts of the keypad
+
+//     Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+//     assertFalse(keypad.isPressed('1'));
+
+//     BitCollector *pin;
+//     pin = new BitCollector(6, 5);
+//     delay(11);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'A', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(6, 4);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'B', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(6, 3);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'C', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(6, 2);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'D', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(7, 5);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'3', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(7, 4);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'6', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(7, 3);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'9', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(7, 2);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'#', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(8, 5);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'2', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(8, 4);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'5', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(8, 3);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'8', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(8, 2);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'0', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(9, 5);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'1', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(9, 4);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'4', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(9, 3);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'7', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+
+//     pin = new BitCollector(9, 2);
+//     delay(100);
+//     for (int i = 2; i <= 5; ++i)
+//     {
+//         state->digitalPin[i] = HIGH;
+//     }
+//     assertEqual((int)'*', (int)keypad.getKey());
+//     delete pin;
+//     pin = nullptr;
+//     delay(11);
+//     keypad.getKey();
+//     delay(11);
+//     assertEqual((int)'\0', (int)keypad.getKey());
+// }
+
+unittest(highlevel) 
 {
     GodmodeState *state;
     state = GODMODE();
@@ -102,7 +350,9 @@ unittest(init)
     byte colPins[COLS] = {9, 8, 7, 6}; //connect to the column pinouts of the keypad
 
     Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
-    assertFalse(keypad.isPressed('1'));
+assertEqual(keypad.countRows(), ROWS);
+assertEqual(keypad.countCols(), COLS);
+
 
     BitCollector *pin;
     pin = new BitCollector(6, 5);
@@ -112,221 +362,19 @@ unittest(init)
         state->digitalPin[i] = HIGH;
     }
     assertEqual((int)'A', (int)keypad.getKey());
+    assertTrue(keypad.keyFound());
+    assertTrue(keypad.keyStateChanged());
+    assertTrue(keypad.keysScanned());
     delete pin;
     pin = nullptr;
     delay(11);
     keypad.getKey();
     delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(6, 4);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'B', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
     keypad.getKey();
     delay(11);
     assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(6, 3);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'C', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(6, 2);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'D', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(7, 5);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'3', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(7, 4);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'6', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(7, 3);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'9', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(7, 2);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'#', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(8, 5);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'2', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(8, 4);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'5', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(8, 3);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'8', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(8, 2);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'0', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(9, 5);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'1', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(9, 4);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'4', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(9, 3);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'7', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
-
-    pin = new BitCollector(9, 2);
-    delay(100);
-    for (int i = 2; i <= 5; ++i)
-    {
-        state->digitalPin[i] = HIGH;
-    }
-    assertEqual((int)'*', (int)keypad.getKey());
-    delete pin;
-    pin = nullptr;
-    delay(11);
-    keypad.getKey();
-    delay(11);
-    assertEqual((int)'\0', (int)keypad.getKey());
+    assertFalse(keypad.keyFound());
+    assertFalse(keypad.keyStateChanged());
+    assertTrue(keypad.keysScanned());
 }
 unittest_main()
