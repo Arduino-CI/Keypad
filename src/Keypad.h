@@ -100,11 +100,11 @@ public:
 	byte numKeys();
 
 // Testing methods
-	bool keysScanned() { return _scanned; }
-	bool keyFound() { return _found; }
-	bool stateChanged() { return _changed; }
-	byte countCols() { return _cols; }
-	byte countRows() { return _rows; }	
+	bool wereKeysScanned() { return _scanned; }
+	bool isKeyFound() { return _found; }
+	bool hasStateChanged() { return _changed; }
+	byte getColCount() { return _cols; }
+	byte getRowCount() { return _rows; }	
 
 private:
 	unsigned long startTime;
