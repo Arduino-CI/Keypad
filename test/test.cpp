@@ -10,7 +10,7 @@ bundle exec arduino_ci_remote.rb  --skip-compilation
 #include "Keypad.h"
 #include "ci/ObservableDataStream.h"
 
-class BitCollector : public DataStreamObserver
+class PinResponder : public DataStreamObserver
 {
 private:
     byte pinC;
@@ -24,7 +24,7 @@ public:
     // to figure out which button is pressed we need to know which column pin
     // and which row pin are set low. this allows us to choose which pins we want
     // to set low.
-    BitCollector(byte pinC, byte pinR)
+    PinResponder(byte pinC, byte pinR)
         : DataStreamObserver(false, false)
     {
         assert(pinC >= 0 && pinC < 10 && pinR >= 0 && pinR < 10);
@@ -36,11 +36,12 @@ public:
         state->digitalPin[pinC].addObserver(observer, this);
     }
 
-    ~BitCollector()
+    ~PinResponder()
     {
         state->digitalPin[pinC].removeObserver(observer);
     }
-
+    // when we get a change on a column, we send the same change on the row to indicate that 
+    // the circuit is closed (button is pressed)
     virtual void onBit(bool aBit)
     {
         state->digitalPin[pinR] = aBit;
@@ -85,16 +86,16 @@ void testKey(byte column, byte row, char key, Keypad keypad)
 {
     GodmodeState *state;
     state = GODMODE();
-    BitCollector *pin;
-    // row pin follows the column pin 
-    pin = new BitCollector(column, row);
-    delay(11);
-    for (int i = 2; i <= 5; ++i)
+    PinResponder *pin;
+    pin = new PinResponder(column, row);     // row pin follows the column pin
+    delay(11); // the library defines a debounce delay of 10ms before recognizing any activity
+    for (int i = 2; i <= 5; ++i)    // Set all rows to HIGH (not pressed)
     {
         state->digitalPin[i] = HIGH;
     }
     // getKey() will toggle all the columns and see which rows were triggered
     assert((int)key == (int)keypad.getKey());
+    // remove active pin and allow the key to cycle through states to IDLE
     delete pin;
     pin = nullptr;
     delay(11);

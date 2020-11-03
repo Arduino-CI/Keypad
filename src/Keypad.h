@@ -97,14 +97,7 @@ public:
 	int findInList(int keyCode);
 	char waitForKey();
 	bool keyStateChanged();
-	byte numKeys();
-
-// Testing methods
-	bool wereKeysScanned() { return _scanned; }
-	bool isKeyFound() { return _found; }
-	bool hasStateChanged() { return _changed; }
-	byte getColCount() { return _cols; }
-	byte getRowCount() { return _rows; }	
+	byte numKeys();	
 
 private:
 	unsigned long startTime;
@@ -116,10 +109,6 @@ private:
 	uint holdTime;
 	bool single_key;
  
-// For testing Methods
-	bool _scanned, _found, _changed;
-	byte _cols, _rows;
-
 	void scanKeys();
 	bool updateList();
 	void nextKeyState(byte n, boolean button);
