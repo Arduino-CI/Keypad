@@ -86,13 +86,14 @@ void testKey(byte column, byte row, char key, Keypad keypad)
     GodmodeState *state;
     state = GODMODE();
     BitCollector *pin;
+    // row pin follows the column pin 
     pin = new BitCollector(column, row);
     delay(11);
     for (int i = 2; i <= 5; ++i)
     {
         state->digitalPin[i] = HIGH;
     }
-    // getKey() 
+    // getKey() will toggle all the columns and see which rows were triggered
     assert((int)key == (int)keypad.getKey());
     delete pin;
     pin = nullptr;
