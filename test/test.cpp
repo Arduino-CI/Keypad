@@ -40,7 +40,7 @@ public:
     {
         state->digitalPin[pinC].removeObserver(observer);
     }
-    // when we get a change on a column, we send the same change on the row to indicate that 
+    // when we get a change on a column, we send the same change on the row to indicate that
     // the circuit is closed (button is pressed)
     virtual void onBit(bool aBit)
     {
@@ -87,9 +87,9 @@ void testKey(byte column, byte row, char key, Keypad keypad)
     GodmodeState *state;
     state = GODMODE();
     PinResponder *pin;
-    pin = new PinResponder(column, row);     // row pin follows the column pin
-    delay(11); // the library defines a debounce delay of 10ms before recognizing any activity
-    for (int i = 2; i <= 5; ++i)    // Set all rows to HIGH (not pressed)
+    pin = new PinResponder(column, row); // row pin follows the column pin
+    delay(11);                           // the library defines a debounce delay of 10ms before recognizing any activity
+    for (int i = 2; i <= 5; ++i)         // Set all rows to HIGH (not pressed)
     {
         state->digitalPin[i] = HIGH;
     }
