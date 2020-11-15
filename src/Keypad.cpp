@@ -49,7 +49,6 @@ Keypad::Keypad(char *userKeymap, byte *row, byte *col, byte numRows,
   single_key = false;
 }
 
-
 // Let the user define a keymap - assume the same row/column count as defined in
 // constructor
 void Keypad::begin(char *userKeymap) { keymap = userKeymap; }
