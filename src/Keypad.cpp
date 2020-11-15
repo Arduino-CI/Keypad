@@ -66,6 +66,7 @@ char Keypad::getKey() {
 }
 
 // Populate the key list.
+
 bool Keypad::getKeys() {
   bool keyActivity = false;
 
@@ -81,6 +82,7 @@ bool Keypad::getKeys() {
 }
 
 // Private : Hardware scan
+
 void Keypad::scanKeys() {
   // Re-intialize the row pins. Allows sharing these pins with other hardware.
   for (byte r = 0; r < sizeKpd.rows; r++) {

@@ -41,6 +41,7 @@
 #warning "Using  pinMode() INPUT_PULLUP AVR emulation"
 #define INPUT_PULLUP 0x2
 #define pinMode(_pin, _mode) _mypinMode(_pin, _mode)
+
 #define _mypinMode(_pin, _mode)                                                \
   do {                                                                         \
     if (_mode == INPUT_PULLUP)                                                 \
