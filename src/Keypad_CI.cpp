@@ -1,6 +1,6 @@
-#include <cassert>
 #include "Keypad_CI.h"
 #ifdef MOCK_PINS_COUNT
+#include <cassert>
 
 char Keypad_CI::getKey() {
   if (buffer.empty()) {
@@ -21,7 +21,7 @@ char Keypad_CI::waitForKey() {
 void Keypad_CI::push_back(char keyChar) { 
   buffer.push_back(keyChar); 
   if (listener) {
-
+    listener(keyChar);
   }
 }
 

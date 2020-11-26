@@ -69,4 +69,32 @@ unittest(numKeys) {
   assertEqual(0, keypad->numKeys());
 }
 
+char eventKey = '\0';
+int callCount = 0;
+void eventListener(char key) {
+  eventKey = key;
+  ++callCount;
+}
+unittest(addEventListener) {
+  assertEqual((int) 0, (int) eventKey);
+  assertEqual(0, callCount);
+  keypad->push_back('A');
+  assertEqual(1, keypad->numKeys());
+  assertEqual('A', keypad->getKey());
+  assertEqual(0, keypad->numKeys());
+  assertEqual((int) 0, (int) eventKey);
+  assertEqual(0, callCount);
+  keypad->addEventListener(eventListener);
+  assertEqual(0, callCount);
+  keypad->push_back('B');
+  assertEqual(1, callCount);
+  assertEqual('B', eventKey);
+  assertEqual('B', keypad->getKey());
+  keypad->addEventListener(nullptr);
+  keypad->push_back('C');
+  assertEqual(1, callCount);
+  assertEqual('B', eventKey);
+  assertEqual('C', keypad->getKey());
+}
+
 unittest_main()
