@@ -18,8 +18,8 @@ char Keypad_CI::waitForKey() {
   return result;
 }
 
-void Keypad_CI::push_back(char keyChar) { 
-  buffer.push_back(keyChar); 
+void Keypad_CI::push_back(char keyChar) {
+  buffer.push_back(keyChar);
   if (listener) {
     listener(keyChar);
   }

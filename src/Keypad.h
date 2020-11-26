@@ -42,7 +42,6 @@
 #define Keypad_Base Keypad
 #endif
 
-
 // bperrybap - Thanks for a well reasoned argument and the following macro(s).
 // See http://arduino.cc/forum/index.php/topic,142041.msg1069480.html#msg1069480
 #ifndef INPUT_PULLUP
@@ -82,7 +81,8 @@ typedef struct {
 // class Keypad_Base : public Key, public HAL_obj {
 class Keypad_Base : public Key {
 public:
-  Keypad_Base(char *userKeymap, byte *row, byte *col, byte numRows, byte numCols);
+  Keypad_Base(char *userKeymap, byte *row, byte *col, byte numRows,
+              byte numCols);
 
   virtual void pin_mode(byte pinNum, byte mode) { pinMode(pinNum, mode); }
   virtual void pin_write(byte pinNum, boolean level) {

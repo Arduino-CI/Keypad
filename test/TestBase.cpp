@@ -102,7 +102,8 @@ void testKey(byte column, byte row, char key, Keypad_Base keypad) {
 }
 
 unittest(init) {
-  Keypad_Base keypad = Keypad_Base(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+  Keypad_Base keypad =
+      Keypad_Base(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
   assertFalse(keypad.isPressed('1'));
 
   testKey(6, 5, 'A', keypad);
@@ -124,7 +125,8 @@ unittest(init) {
 }
 
 unittest(testingClassName) {
-  Keypad_Base keypad = Keypad_Base(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+  Keypad_Base keypad =
+      Keypad_Base(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
   assertEqual("Keypad_Base", keypad.className());
 }
 

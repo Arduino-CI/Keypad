@@ -76,13 +76,13 @@ void eventListener(char key) {
   ++callCount;
 }
 unittest(addEventListener) {
-  assertEqual((int) 0, (int) eventKey);
+  assertEqual((int)0, (int)eventKey);
   assertEqual(0, callCount);
   keypad->push_back('A');
   assertEqual(1, keypad->numKeys());
   assertEqual('A', keypad->getKey());
   assertEqual(0, keypad->numKeys());
-  assertEqual((int) 0, (int) eventKey);
+  assertEqual((int)0, (int)eventKey);
   assertEqual(0, callCount);
   keypad->addEventListener(eventListener);
   assertEqual(0, callCount);

@@ -33,7 +33,7 @@
 
 // <<constructor>> Allows custom keymap, pin configuration, and keypad sizes.
 Keypad_Base::Keypad_Base(char *userKeymap, byte *row, byte *col, byte numRows,
-               byte numCols) {
+                         byte numCols) {
   rowPins = row;
   columnPins = col;
   sizeKpd.rows = numRows;
