@@ -1,14 +1,20 @@
-/*
-bundle config --local path vendor/bundle
-bundle install
-bundle exec arduino_ci.rb  --skip-examples-compilation
- */
+
 #include "Arduino.h"
 #include "ArduinoUnitTests.h"
 #include "Keypad.h"
 #include "ci/ObservableDataStream.h"
 #include <cassert>
 #include <vector>
+
+const byte ROWS = 4; // four rows
+const byte COLS = 4; // three columns
+char keys[ROWS][COLS] = {{'1', '2', '3', 'A'},
+                         {'4', '5', '6', 'B'},
+                         {'7', '8', '9', 'C'},
+                         {'*', '0', '#', 'D'}};
+byte rowPins[ROWS] = {5, 4, 3, 2}; // connect to the row pinouts of the keypad
+byte colPins[COLS] = {9, 8, 7,
+                      6}; // connect to the column pinouts of the keypad
 
 class PinResponder : public DataStreamObserver {
 private:
@@ -73,7 +79,7 @@ public:
 // (9,2) = '*', (8,2) = '0', (7,2) = '#', (6,2) = 'D',
 // ------------------------------------------------------------------------------
 
-void testKey(byte column, byte row, char key, Keypad keypad) {
+void testKey(byte column, byte row, char key, Keypad_Base keypad) {
   GodmodeState *state;
   state = GODMODE();
   PinResponder *pin;
@@ -96,18 +102,7 @@ void testKey(byte column, byte row, char key, Keypad keypad) {
 }
 
 unittest(init) {
-
-  const byte ROWS = 4; // four rows
-  const byte COLS = 4; // three columns
-  char keys[ROWS][COLS] = {{'1', '2', '3', 'A'},
-                           {'4', '5', '6', 'B'},
-                           {'7', '8', '9', 'C'},
-                           {'*', '0', '#', 'D'}};
-  byte rowPins[ROWS] = {5, 4, 3, 2}; // connect to the row pinouts of the keypad
-  byte colPins[COLS] = {9, 8, 7,
-                        6}; // connect to the column pinouts of the keypad
-
-  Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+  Keypad_Base keypad = Keypad_Base(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
   assertFalse(keypad.isPressed('1'));
 
   testKey(6, 5, 'A', keypad);
@@ -126,6 +121,11 @@ unittest(init) {
   testKey(9, 4, '4', keypad);
   testKey(9, 3, '7', keypad);
   testKey(9, 2, '*', keypad);
+}
+
+unittest(testingClassName) {
+  Keypad_Base keypad = Keypad_Base(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+  assertEqual("Keypad_Base", keypad.className());
 }
 
 unittest_main()

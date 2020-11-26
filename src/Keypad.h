@@ -35,6 +35,14 @@
 
 #include "Key.h"
 
+#ifdef MOCK_PINS_COUNT
+#define Keypad_CI Keypad
+#include <WString.h>
+#else
+#define Keypad_Base Keypad
+#endif
+
+
 // bperrybap - Thanks for a well reasoned argument and the following macro(s).
 // See http://arduino.cc/forum/index.php/topic,142041.msg1069480.html#msg1069480
 #ifndef INPUT_PULLUP
@@ -71,10 +79,10 @@ typedef struct {
 #define MAPSIZE 10  // MAPSIZE is the number of rows (times 16 columns)
 #define makeKeymap(x) ((char *)x)
 
-// class Keypad : public Key, public HAL_obj {
-class Keypad : public Key {
+// class Keypad_Base : public Key, public HAL_obj {
+class Keypad_Base : public Key {
 public:
-  Keypad(char *userKeymap, byte *row, byte *col, byte numRows, byte numCols);
+  Keypad_Base(char *userKeymap, byte *row, byte *col, byte numRows, byte numCols);
 
   virtual void pin_mode(byte pinNum, byte mode) { pinMode(pinNum, mode); }
   virtual void pin_write(byte pinNum, boolean level) {
@@ -100,6 +108,9 @@ public:
   char waitForKey();
   bool keyStateChanged();
   byte numKeys();
+#ifdef MOCK_PINS_COUNT
+  virtual String className() const { return "Keypad_Base"; }
+#endif
 
 private:
   unsigned long startTime;
