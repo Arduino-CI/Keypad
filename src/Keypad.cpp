@@ -32,8 +32,8 @@
 #include <Keypad.h>
 
 // <<constructor>> Allows custom keymap, pin configuration, and keypad sizes.
-Keypad::Keypad(char *userKeymap, byte *row, byte *col, byte numRows,
-               byte numCols) {
+Keypad_Base::Keypad_Base(char *userKeymap, byte *row, byte *col, byte numRows,
+                         byte numCols) {
   rowPins = row;
   columnPins = col;
   sizeKpd.rows = numRows;
@@ -51,10 +51,10 @@ Keypad::Keypad(char *userKeymap, byte *row, byte *col, byte numRows,
 
 // Let the user define a keymap - assume the same row/column count as defined in
 // constructor
-void Keypad::begin(char *userKeymap) { keymap = userKeymap; }
+void Keypad_Base::begin(char *userKeymap) { keymap = userKeymap; }
 
 // Returns a single key only. Retained for backwards compatibility.
-char Keypad::getKey() {
+char Keypad_Base::getKey() {
   single_key = true;
 
   if (getKeys() && key[0].stateChanged && (key[0].kstate == PRESSED))
@@ -67,7 +67,7 @@ char Keypad::getKey() {
 
 // Populate the key list.
 
-bool Keypad::getKeys() {
+bool Keypad_Base::getKeys() {
   bool keyActivity = false;
 
   // Limit how often the keypad is scanned. This makes the loop() run 10 times
@@ -83,7 +83,7 @@ bool Keypad::getKeys() {
 
 // Private : Hardware scan
 
-void Keypad::scanKeys() {
+void Keypad_Base::scanKeys() {
   // Re-intialize the row pins. Allows sharing these pins with other hardware.
   for (byte r = 0; r < sizeKpd.rows; r++) {
     pin_mode(rowPins[r], INPUT_PULLUP);
@@ -106,7 +106,7 @@ void Keypad::scanKeys() {
 
 // Manage the list without rearranging the keys. Returns true if any keys on the
 // list changed state.
-bool Keypad::updateList() {
+bool Keypad_Base::updateList() {
 
   bool anyActivity = false;
 
@@ -158,7 +158,7 @@ bool Keypad::updateList() {
 
 // Private
 // This function is a state machine but is also used for debouncing the keys.
-void Keypad::nextKeyState(byte idx, boolean button) {
+void Keypad_Base::nextKeyState(byte idx, boolean button) {
   key[idx].stateChanged = false;
 
   switch (key[idx].kstate) {
@@ -185,7 +185,7 @@ void Keypad::nextKeyState(byte idx, boolean button) {
 }
 
 // New in 2.1
-bool Keypad::isPressed(char keyChar) {
+bool Keypad_Base::isPressed(char keyChar) {
   for (byte i = 0; i < LIST_MAX; i++) {
     if (key[i].kchar == keyChar) {
       if ((key[i].kstate == PRESSED) && key[i].stateChanged)
@@ -197,7 +197,7 @@ bool Keypad::isPressed(char keyChar) {
 
 // Search by character for a key in the list of active keys.
 // Returns -1 if not found or the index into the list of active keys.
-int Keypad::findInList(char keyChar) {
+int Keypad_Base::findInList(char keyChar) {
   for (byte i = 0; i < LIST_MAX; i++) {
     if (key[i].kchar == keyChar) {
       return i;
@@ -208,7 +208,7 @@ int Keypad::findInList(char keyChar) {
 
 // Search by code for a key in the list of active keys.
 // Returns -1 if not found or the index into the list of active keys.
-int Keypad::findInList(int keyCode) {
+int Keypad_Base::findInList(int keyCode) {
   for (byte i = 0; i < LIST_MAX; i++) {
     if (key[i].kcode == keyCode) {
       return i;
@@ -218,7 +218,7 @@ int Keypad::findInList(int keyCode) {
 }
 
 // New in 2.0
-char Keypad::waitForKey() {
+char Keypad_Base::waitForKey() {
   char waitKey = NO_KEY;
   while ((waitKey = getKey()) == NO_KEY)
     ; // Block everything while waiting for a keypress.
@@ -226,28 +226,28 @@ char Keypad::waitForKey() {
 }
 
 // Backwards compatibility function.
-KeyState Keypad::getState() { return key[0].kstate; }
+KeyState Keypad_Base::getState() { return key[0].kstate; }
 
 // The end user can test for any changes in state before deciding
 // if any variables, etc. needs to be updated in their code.
-bool Keypad::keyStateChanged() { return key[0].stateChanged; }
+bool Keypad_Base::keyStateChanged() { return key[0].stateChanged; }
 
 // The number of keys on the key list, key[LIST_MAX], equals the number
 // of bytes in the key list divided by the number of bytes in a Key object.
-byte Keypad::numKeys() { return sizeof(key) / sizeof(Key); }
+byte Keypad_Base::numKeys() { return sizeof(key) / sizeof(Key); }
 
 // Minimum debounceTime is 1 mS. Any lower *will* slow down the loop().
-void Keypad::setDebounceTime(uint debounce) {
+void Keypad_Base::setDebounceTime(uint debounce) {
   debounce < 1 ? debounceTime = 1 : debounceTime = debounce;
 }
 
-void Keypad::setHoldTime(uint hold) { holdTime = hold; }
+void Keypad_Base::setHoldTime(uint hold) { holdTime = hold; }
 
-void Keypad::addEventListener(void (*listener)(char)) {
+void Keypad_Base::addEventListener(void (*listener)(char)) {
   keypadEventListener = listener;
 }
 
-void Keypad::transitionTo(byte idx, KeyState nextState) {
+void Keypad_Base::transitionTo(byte idx, KeyState nextState) {
   key[idx].kstate = nextState;
   key[idx].stateChanged = true;
 
