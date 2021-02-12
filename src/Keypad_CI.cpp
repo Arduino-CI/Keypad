@@ -4,7 +4,7 @@
 
 char Keypad_CI::getKey() {
   if (buffer.empty()) {
-    return -1;
+    return NO_KEY;
   }
   char result = buffer.front();
   buffer.pop_front();
