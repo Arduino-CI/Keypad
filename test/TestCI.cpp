@@ -23,10 +23,10 @@ unittest_teardown() { delete keypad; }
 unittest(className) { assertEqual("Keypad_CI", keypad->className()); }
 
 unittest(getKey) {
-  assertEqual((int)-1, (int)keypad->getKey());
+  assertEqual(NO_KEY, (int)keypad->getKey());
   keypad->push_back('A');
   assertEqual('A', keypad->getKey());
-  assertEqual((int)-1, (int)keypad->getKey());
+  assertEqual(NO_KEY, (int)keypad->getKey());
 }
 
 unittest(getKeys) {
