@@ -29,22 +29,20 @@
 */
 #include "Key.h"
 
-
 // default constructor
 Key::Key() {
-	kchar = NO_KEY;
-	kstate = IDLE;
-	stateChanged = false;
+  kchar = NO_KEY;
+  kstate = IDLE;
+  stateChanged = false;
 }
 
 // constructor
 Key::Key(char userKeyChar) {
-	kchar = userKeyChar;
-	kcode = UNASSIGNED;
-	kstate = IDLE;
-	stateChanged = false;
+  kchar = userKeyChar;
+  kcode = UNASSIGNED;
+  kstate = IDLE;
+  stateChanged = false;
 }
-
 
 /*
 || @changelog
