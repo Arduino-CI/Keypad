@@ -32,35 +32,29 @@
 #ifndef KEY_H
 #define KEY_H
 
-// Arduino versioning.
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "Arduino.h"	// for digitalRead, digitalWrite, etc
-#else
-#include "WProgram.h"
-#endif
+#include "Arduino.h" // for digitalRead, digitalWrite, etc
 
 #define KEY_OPEN LOW
 #define KEY_CLOSED HIGH
 
 typedef unsigned int uint;
-typedef enum{ IDLE, PRESSED, HOLD, RELEASED } KeyState;
+typedef enum { IDLE, PRESSED, HOLD, RELEASED } KeyState;
 
 const char NO_KEY = '\0';
-const int UNASSIGNED=-1;        // kcode is not assigned.
+const int UNASSIGNED = -1; // kcode is not assigned.
 
 class Key {
 public:
-	// members
-	char kchar;
-	int kcode;
-	KeyState kstate;
-	boolean stateChanged;
+  // members
+  char kchar;
+  int kcode;
+  KeyState kstate;
+  boolean stateChanged;
 
 public:
-	// methods
-	Key();
-	Key(char userKeyChar);
-
+  // methods
+  Key();
+  Key(char userKeyChar);
 };
 
 #endif
